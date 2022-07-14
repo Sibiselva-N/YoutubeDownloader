@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>YtDownloader</title>
+</head>
+
+<body>
+    <div class="search">
+        <h2>Download video and audio from Youtube</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="url" name="url" id="url" placeholder="Youtube url">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div class="links">
+        {% if title %}
+        <h4 class="item">
+            {{title}}
+        </h4>
+        <img src="{{thum}}" alt="" srcset="" class="item">
+        <div class="line"></div>
+        <h3 class="item"> video with audio</h3>
+        {% for i in muxed %}
+        <div class="item">
+            <div class="con">
+                <h3>{{i.res}}</h3>
+                <h3>{{i.size}} MB</h3>
+                <a href="{{i.url}}" download="true" target="_blank">
+                    <div class="dow">
+                        Download
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="line"></div>
+        <h3 class="item"> Audio only</h3>
+        {% for i in audio %}
+        <div class="item">
+            <div class="con">
+                <h3>{{i.res}}</h3>
+                <h3>{{i.size}} MB</h3>
+                <a href="{{i.url}}" download="true" target="_blank">
+                    <div class="dow">
+                        Download
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="line"></div>
+        <h3 class="item"> Only video no Audio</h3>
+        {% for i in video %}
+        <div class="item">
+            <div class="con">
+                <h3>{{i.res}}</h3>
+                <h3>{{i.size}} MB</h3>
+                <a href="{{i.url}}" download="true" target="_blank">
+                    <div class="dow">
+                        Download
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="line"></div>
+
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
